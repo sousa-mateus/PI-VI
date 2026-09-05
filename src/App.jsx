@@ -1,120 +1,208 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeScreen, setActiveScreen] = useState("home");
+
+  const menuItems = [
+    { id: "agenda", label: "Agenda", icon: "▣" },
+    { id: "notifications", label: "Avisos", icon: "◉" },
+    { id: "music", label: "Música", icon: "♫" },
+    { id: "settings", label: "Ajustes", icon: "⚙" },
+  ];
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      <main className='ecora'>
+        <section className='watch'>
+          <div className='watch-glow' />
 
-      <div className="ticks"></div>
+          <div className='watch-header'>
+            <span>ECORA</span>
+            <span className='status'>● ONLINE</span>
+          </div>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          {activeScreen === "home" && (
+            <section className='home-screen'>
+              <p className='greeting'>BEM-VINDO AO</p>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+              <h1>ECORA</h1>
+
+              <div className='clock'>
+                {new Date().toLocaleDateString("pt-BR", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </div>
+
+              <p className='date'>
+                {new Date().toLocaleDateString("pt-BR", {
+                  weekday: "long",
+                  day: "numeric",
+                  month: "long",
+                })}
+              </p>
+
+              <button className='main-button'
+                onClick={() => setActiveScreen("menu")}>
+                ABRIR ECORA
+              </button>
+            </section>
+          )}
+
+          {activeScreen === "menu" && (
+            <section className='menu-screen'>
+              <div className='screen-title'>
+                <span>MENU</span>
+                <small>ECORA OS</small>
+              </div>
+
+              <div className='menu-grid'>
+                {menuItems.map((item) => (
+                  <button
+                    key={item.id}
+                    className='menu-item'
+                    onClick={() => setActiveScreen(item.id)}>
+                    <span className='menu-icon'>{item.icon}</span>
+                    <span>{item.label}</span>
+                  </button>
+                ))}
+              </div>
+
+              <button
+                className='back-button'
+                onClick={() => setActiveScreen("home")}>
+                ← VOLTAR
+              </button>
+            </section>
+          )}
+
+          {activeScreen === "agenda" && (
+            <section className='content-screen'>
+              <div className='screen-title'>
+                <span>AGENDA</span>
+                <small>HOJE</small>
+              </div>
+
+              <div className='agenda-item'>
+                <strong>09:00</strong>
+                <span>Aula / Projeto</span>
+              </div>
+
+              <div className='agenda-item'>
+                <strong>14:00</strong>
+                <span>Desenvolvimento ECORA</span>
+              </div>
+
+              <div className='agenda-item'>
+                <strong>19:30</strong>
+                <span>Estudos</span>
+              </div>
+
+              <button
+                className='back-button'
+                onClick={() => setActiveScreen("menu")}>
+                ← MENU
+              </button>
+            </section>
+          )}
+
+          {activeScreen === "notifications" && (
+            <section className='content-screen'>
+              <div className='screen-title'>
+                <span>AVISOS</span>
+                <small>3 NOVOS</small>
+              </div>
+
+              <div className='notification'>
+                <strong>ECORA</strong>
+                <span>Sistema iniciado com sucesso</span>
+              </div>
+
+              <div className='notification'>
+                <strong>AGENDA</strong>
+                <span>Você possui compromissos hoje.</span>
+              </div>
+
+              <div className='notification'>
+                <strong>SISTEMA</strong>
+                <span>Todos os módulos estão operacionais.</span>
+              </div>
+
+              <button
+                className='back-button'
+                onClick={() => setActiveScreen("menu")}>
+                ← MENU
+              </button>
+            </section>
+          )}
+
+          {activeScreen === "music" && (
+            <section className='content-screen music-screen'>
+              <div className='screen-title'>
+                <span>MÚSICA</span>
+                <small>ECORA AUDIO</small>
+              </div>
+
+              <div className='album-placeholder'>
+                <span>♫</span>
+              </div>
+
+              <h2>ECORA EXPERIENCE</h2>
+              <p>Interface de demonstração</p>
+
+              <div className='music-controls'>
+                <button>◀</button>
+                <button className="play-button">▶</button>
+                <button>▶</button>
+              </div>
+
+              <button
+                className='back-button'
+                onClick={() => setActiveScreen("menu")}>
+                ← MENU
+              </button>
+            </section>
+          )}
+
+          {activeScreen === "settings" && (
+            <section className='content-screen'>
+              <div className='screen-title'>
+                <span>AJUSTES</span>
+                <small>ECORA OS</small>
+              </div>
+
+              <div className='setting'>
+                <span>Brilho</span>
+                <span>███████░░░</span>
+              </div>
+
+              <div className='setting'>
+                <span>Interface</span>
+                <span>HOLOGRAPHIC</span>
+              </div>
+
+              <div className='setting'>
+                <span>Idioma</span>
+                <span>PT-BR</span>
+              </div>
+
+              <button
+                className='back-button'
+                onClick={() => setActiveScreen("menu")}>
+                ← MENU
+              </button>
+            </section>
+          )}
+
+          <div className='scanline' />
+        </section>
+
+        <div className='projection'>
+          <div className='projection-line' />
+          <span>ECORA VIRTUAL INTERFACE</span>
+        </div>
+      </main>
     </>
   )
 }
