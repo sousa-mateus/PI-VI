@@ -1,14 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
+import Holograma3D from './Holograma3D'
 
 function App() {
   const [activeScreen, setActiveScreen] = useState("home");
+  const [agora, setAgora] = useState(new Date());
+
+  useEffect(() => {
+    const intervalo = setInterval(() => {
+      setAgora(new Date());
+    }, 1000);
+
+    return () => clearInterval(intervalo);
+  }, []);
 
   const menuItems = [
     { id: "agenda", label: "Agenda", icon: "▣" },
     { id: "notifications", label: "Avisos", icon: "◉" },
     { id: "music", label: "Música", icon: "♫" },
     { id: "settings", label: "Ajustes", icon: "⚙" },
+    { id: "holograma", label: "Holograma", icon: "◇" },
   ];
 
   return (
@@ -29,14 +40,14 @@ function App() {
               <h1>ECORA</h1>
 
               <div className='clock'>
-                {new Date().toLocaleDateString("pt-BR", {
+                {agora.toLocaleTimeString("pt-BR", {
                   hour: "2-digit",
                   minute: "2-digit",
                 })}
               </div>
 
               <p className='date'>
-                {new Date().toLocaleDateString("pt-BR", {
+                {agora.toLocaleDateString("pt-BR", {
                   weekday: "long",
                   day: "numeric",
                   month: "long",
@@ -196,6 +207,25 @@ function App() {
           )}
 
           <div className='scanline' />
+
+          {activeScreen === "holograma" && (
+            <section className="content-screen holograma-screen">
+              <div className="screen-title">
+                <span>HOLOGRAMA</span>
+                <small>ECORA 3D</small>
+              </div>
+
+              <Holograma3D />
+
+              <button
+                className="back-button"
+                onClick={() => setActiveScreen("menu")}
+              >
+                ← MENU
+              </button>
+            </section>
+          )}
+
         </section>
 
         <div className='projection'>

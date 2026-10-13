@@ -1,4 +1,4 @@
-* {
+/* * {
   box-sizing: border-box;
 }
 
@@ -319,6 +319,20 @@ button {
   );
 }
 
+.holograma-screen {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.holograma-screen .holograma-painel {
+  margin: 12px 0;
+}
+
+.holograma-screen .back-button {
+  margin-top: 12px;
+}
+
+
 @media (max-width: 500px) {
   .watch {
     min-height: 650px;
@@ -331,5 +345,387 @@ button {
 
   .clock {
     font-size: 48px;
+  }
+}
+ */
+
+/* =====================================
+   ECORA — VISUAL MINIMALISTA PREMIUM
+   Etapa 1: estrutura e menu
+   ===================================== */
+
+:root {
+  --ecora-bg: #05090d;
+  --ecora-panel: #0b131a;
+  --ecora-card: #101c24;
+  --ecora-border: rgba(135, 190, 205, 0.19);
+  --ecora-accent: #83e8ed;
+  --ecora-text: #edf5f7;
+  --ecora-muted: #8b9ba5;
+}
+
+/* Fundo geral */
+.ecora {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 24px 16px 38px;
+  background:
+    radial-gradient(ellipse at 50% 0%,
+      rgba(54, 111, 125, 0.11),
+      transparent 55%),
+    var(--ecora-bg);
+}
+
+/* Corpo principal do dispositivo */
+.watch {
+  width: 100%;
+  max-width: 480px;
+  min-height: 680px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 28px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+
+  background: linear-gradient(155deg,
+      #0d1921 0%,
+      #091219 55%,
+      #070d12 100%);
+
+  border: 1px solid var(--ecora-border);
+  border-radius: 34px;
+
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+/* Brilho decorativo sutil */
+.watch-glow {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* Cabeçalho */
+.watch-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 48px;
+  color: var(--ecora-text);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 3px;
+}
+
+.status {
+  color: var(--ecora-accent);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+/* Títulos das telas */
+.screen-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.screen-title>span {
+  color: var(--ecora-text);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 3px;
+}
+
+.screen-title small {
+  color: var(--ecora-muted);
+  font-size: 9px;
+  letter-spacing: 3px;
+}
+
+/* Menu com espaçamento uniforme */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* Cartões dos módulos */
+.menu-item {
+  min-width: 0;
+  min-height: 126px;
+  padding: 20px 12px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+
+  color: var(--ecora-text);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--ecora-border);
+  border-radius: 19px;
+
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.menu-item:hover {
+  background: rgba(131, 232, 237, 0.065);
+  border-color: rgba(131, 232, 237, 0.48);
+  transform: translateY(-2px);
+}
+
+.menu-item:focus-visible,
+.back-button:focus-visible,
+.main-button:focus-visible {
+  outline: 2px solid var(--ecora-accent);
+  outline-offset: 4px;
+}
+
+/* Ícones mais delicados */
+.menu-icon {
+  color: var(--ecora-accent);
+  font-size: 25px;
+  line-height: 1;
+}
+
+/* Destaque horizontal para o holograma */
+.menu-item:nth-child(5) {
+  grid-column: 1 / -1;
+  min-height: 84px;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: flex-start;
+  padding-left: 24px;
+  background: linear-gradient(100deg,
+      rgba(131, 232, 237, 0.075),
+      rgba(255, 255, 255, 0.018));
+}
+
+/* Botões de navegação */
+.back-button,
+.main-button {
+  min-height: 42px;
+  padding: 10px 17px;
+  color: var(--ecora-text);
+  background: transparent;
+  border: 1px solid var(--ecora-border);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.back-button {
+  margin-top: 28px;
+}
+
+.back-button:hover,
+.main-button:hover {
+  background: rgba(131, 232, 237, 0.07);
+  border-color: rgba(131, 232, 237, 0.5);
+}
+
+/* Tela inicial */
+.home-screen {
+  padding-top: 40px;
+}
+
+.greeting {
+  color: var(--ecora-muted);
+  font-size: 11px;
+  letter-spacing: 3px;
+}
+
+.home-screen h1 {
+  margin: 12px 0;
+  color: var(--ecora-text);
+  font-size: clamp(42px, 10vw, 58px);
+  font-weight: 400;
+  letter-spacing: 8px;
+}
+
+.clock {
+  margin-top: 34px;
+  color: var(--ecora-accent);
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.date {
+  color: var(--ecora-muted);
+  font-size: 12px;
+}
+
+/* Conteúdo das outras telas */
+.content-screen {
+  min-width: 0;
+}
+
+.agenda-item,
+.notification,
+.setting {
+  border-color: var(--ecora-border);
+}
+
+/* Projeção decorativa abaixo do dispositivo */
+.projection {
+  opacity: 0.7;
+}
+
+/* Ajustes para telas pequenas */
+@media (max-width: 420px) {
+  .ecora {
+    padding: 12px 10px 28px;
+  }
+
+  .watch {
+    min-height: 620px;
+    padding: 22px 18px;
+    border-radius: 27px;
+  }
+
+  .watch-header {
+    margin-bottom: 38px;
+  }
+
+  .menu-grid {
+    gap: 10px;
+  }
+
+  .menu-item {
+    min-height: 112px;
+    border-radius: 15px;
+  }
+
+  .screen-title>span {
+    font-size: 19px;
+  }
+}
+
+
+/* ECORA — tipografia premium */
+
+.ecora,
+.ecora button,
+.ecora select,
+.ecora input {
+  font-family:
+    "Inter",
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+.watch-header,
+.screen-title > span,
+.screen-title small,
+.menu-item,
+.back-button,
+.main-button,
+.greeting,
+.date,
+.holograma-painel {
+  font-family:
+    "Inter",
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+}
+
+.screen-title > span {
+  font-weight: 500;
+  letter-spacing: 3px;
+}
+
+.menu-item {
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}
+
+.menu-icon {
+  font-family: Arial, sans-serif;
+  font-weight: 400;
+}
+
+.back-button,
+.main-button {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* Tela inicial — composição premium */
+
+.home-screen {
+  padding-top: clamp(36px, 8vh, 72px);
+}
+
+.home-screen .greeting {
+  margin-bottom: 24px;
+  font-size: 10px;
+  letter-spacing: 4px;
+}
+
+.home-screen h1 {
+  margin: 0 0 42px;
+  font-size: clamp(48px, 10vw, 64px);
+  font-weight: 300;
+  letter-spacing: 9px;
+}
+
+.home-screen .clock {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: clamp(30px, 6vw, 38px);
+  font-weight: 300;
+  letter-spacing: 1px;
+  font-variant-numeric: tabular-nums;
+}
+
+.home-screen .date {
+  margin-bottom: 24px;
+  font-size: 12px;
+}
+
+.home-screen .main-button {
+  min-width: 132px;
+  min-height: 46px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .menu-item,
+  .back-button,
+  .main-button {
+    transition: none;
+  }
+
+  .menu-item:hover {
+    transform: none;
   }
 }
